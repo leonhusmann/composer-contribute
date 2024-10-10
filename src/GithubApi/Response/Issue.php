@@ -6,6 +6,7 @@ namespace LeonHusmann\ComposerContribute\GithubApi\Response;
 
 class Issue
 {
+    /** @param string[] $reactions */
     public function __construct(
         private string $url,
         private string $repositoryUrl,
