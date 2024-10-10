@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace LeonHusmann\ComposerContribute\Command;
 
 use Composer\Command;
+use Composer\Factory;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
+
+use function sprintf;
 
 final class ContributeCommand extends Command\BaseCommand
 {
-    public function __construct()
-    {
+    public function __construct(
+        private Factory $factory,
+    ) {
         parent::__construct('contribute');
     }
 
@@ -24,9 +27,28 @@ final class ContributeCommand extends Command\BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $io = $this->getIO();
 
-        $io->writeln('Hello world');
+        $io->write([
+            sprintf(
+                'Running %s.',
+                '1.0.0-alpha',
+            ),
+            '',
+        ]);
+
+        $composer = $this->factory->createComposer(
+            $io,
+            Factory::getComposerFile(),
+        );
+
+        $installedPackages = $composer->getRepositoryManager()->getLocalRepository()->getPackages();
+
+        $io->write('Installed Dependencies and their Source URLs:');
+        foreach ($installedPackages as $package) {
+            $name = $package->getName();
+            $io->write(sprintf('%s: %s', $name, $package->getSourceUrl()));
+        }
 
         return SymfonyCommand::SUCCESS;
     }

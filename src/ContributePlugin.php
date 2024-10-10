@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LeonHusmann\ComposerContribute;
 
 use Composer\Composer;
+use Composer\Factory;
 use Composer\IO;
 use Composer\Plugin;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
@@ -35,7 +36,9 @@ final class ContributePlugin implements Plugin\Capability\CommandProvider, Plugi
     public function getCommands(): array
     {
         return [
-            new Command\ContributeCommand(),
+            new Command\ContributeCommand(
+                new Factory(),
+            ),
         ];
     }
 }
