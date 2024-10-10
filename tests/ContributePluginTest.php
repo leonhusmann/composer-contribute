@@ -7,9 +7,11 @@ namespace LeonHusmann\ComposerContribute\Tests;
 use LeonHusmann\ComposerContribute\Command\ContributeCommand;
 use LeonHusmann\ComposerContribute\ContributePlugin;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ContributePlugin::class)]
+#[UsesClass(ContributeCommand::class)]
 class ContributePluginTest extends TestCase
 {
     public function testGetCommands(): void
