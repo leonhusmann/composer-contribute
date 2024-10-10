@@ -1,2 +1,4 @@
 vendor
-.phpcs-cache
+build/.phpcs-cache
+build/.phpunit.cache
+build
