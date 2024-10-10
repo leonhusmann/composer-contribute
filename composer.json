@@ -1,19 +1,8 @@
 {
     "name": "leonhusmann/composer-contribute",
     "description": "Find open issues in your dependencies and contribute to the packages you rely on.",
-    "type": "composer-plugin",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "LeonHusmann\\ComposerContribute\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "LeonHusmann\\ComposerContribute\\Tests\\": "tests/"
-        }
-    },
+    "type": "composer-plugin",
     "authors": [
         {
             "name": "Leon Husmann",
@@ -27,18 +16,31 @@
         "symfony/console": "^7.2"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.0",
         "doctrine/coding-standard": "13.0.x-dev",
+        "ergebnis/composer-normalize": "dev-main",
+        "phpunit/phpunit": "^11",
         "shipmonk/composer-dependency-analyser": "dev-master",
-        "phpunit/phpunit": "^11"
+        "squizlabs/php_codesniffer": "^3.0"
     },
-    "extra": {
-        "class": "LeonHusmann\\ComposerContribute\\ContributePlugin"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "LeonHusmann\\ComposerContribute\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LeonHusmann\\ComposerContribute\\Tests\\": "tests/"
+        }
     },
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "ergebnis/composer-normalize": true
         }
+    },
+    "extra": {
+        "class": "LeonHusmann\\ComposerContribute\\ContributePlugin"
     },
     "scripts": {
         "check": [
@@ -48,8 +50,8 @@
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
+        "dependency-check": "@php -dzend.assertions=-1 ./vendor/bin/composer-dependency-analyser",
         "test": "@php -dzend.assertions=-1 ./vendor/bin/phpunit --no-coverage",
-        "test-coverage": "@php -dxdebug.mode=coverage -dzend.assertions=1 ./vendor/bin/phpunit",
-        "dependency-check": "@php -dzend.assertions=-1 ./vendor/bin/composer-dependency-analyser"
+        "test-coverage": "@php -dxdebug.mode=coverage -dzend.assertions=1 ./vendor/bin/phpunit"
     }
 }
