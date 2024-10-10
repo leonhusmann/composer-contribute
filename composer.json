@@ -12,9 +12,9 @@
     "require": {
         "php": "^8.2",
         "ext-curl": "*",
-      "composer-plugin-api": "^2.0",
-        "composer/composer": "^2.8@dev",
-        "symfony/console": "^7.2"
+        "composer-plugin-api": "^2.0",
+        "composer/composer": "^2.8",
+        "symfony/console": "^7.1"
     },
     "require-dev": {
         "composer/composer": "^2.0",
