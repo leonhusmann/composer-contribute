@@ -1,5 +1,10 @@
 # Composer Contribute Plugin
 
+[![Minimum PHP Version](https://img.shields.io/badge/php-%5E8.2-8892BF.svg)](https://www.php.net/releases/8.2/en.php)
+[![Continuous Integration Status](https://github.com/leonhusmann/composer-contribute/workflows/CI/badge.svg)](https://github.com/leonhusmann/composer-contribute/actions)
+[![Code Coverage](https://codecov.io/gh/leonhusmann/composer-contribute/branch/main/graph/badge.svg?token=X)](https://codecov.io/gh/leonhusmann/composer-contribute)
+[![License](https://poser.pugx.org/leonhusmann/composer-contribute/license)](https://github.com/leonhusmann/composer-contribute/blob/main/LICENSE)
+
 **Composer Contribute** is a Composer plugin that helps you find open issues in your project dependencies, allowing you to contribute to the packages you rely on. It's particularly useful during events like Hacktoberfest.
 
 ## Features
