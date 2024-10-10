@@ -8,7 +8,9 @@ use Composer\Command;
 use Composer\Factory;
 use LeonHusmann\ComposerContribute\Composer\PackageFetcher;
 use LeonHusmann\ComposerContribute\Composer\PackageSourceResolver;
+use LeonHusmann\ComposerContribute\GithubApi\RepositoryMetadata;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -19,6 +21,7 @@ final class ContributeCommand extends Command\BaseCommand
     public function __construct(
         private readonly Factory $factory,
         private readonly PackageFetcher $packageFetcher,
+        private readonly RepositoryMetadata $repositoryMetadata,
     ) {
         parent::__construct('contribute');
     }
@@ -35,21 +38,31 @@ final class ContributeCommand extends Command\BaseCommand
         $io->write(sprintf('Running %s.', '1.0.0-alpha'));
 
         $composer = $this->factory->createComposer($io, Factory::getComposerFile());
-        $resolver = new PackageSourceResolver($this->packageFetcher->fetchInstalledPackages($composer));
+        $resolver = new PackageSourceResolver(
+            $composer,
+            $this->packageFetcher->fetchInstalledPackages($composer),
+        );
 
+        $table = new Table($output);
+        $table->setHeaders(['id', 'name', 'Issues']);
+
+        $id = 0;
         foreach (
             [
                 ...$composer->getPackage()->getRequires(),
                 ...$composer->getPackage()->getDevRequires(),
             ] as $dependency
         ) {
-            $source = $resolver->resolve($dependency->getTarget());
-            if ($source === null) {
+            $basePackage = $resolver->resolve($dependency->getTarget());
+            if ($basePackage === null) {
                 continue;
             }
 
-            $io->write(sprintf('%s', $source));
+            $issues = $this->repositoryMetadata->fetchIssues($basePackage);
+            $table->addRow([++$id, $basePackage->getPrettyName(), $issues->count()]);
         }
+
+        $table->render();
 
         return SymfonyCommand::SUCCESS;
     }

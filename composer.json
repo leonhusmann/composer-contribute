@@ -11,33 +11,15 @@
     ],
     "require": {
         "php": "^8.2",
-        "composer-plugin-api": "^2.0",
+        "ext-curl": "*",
+      "composer-plugin-api": "^2.0",
         "composer/composer": "^2.8@dev",
         "symfony/console": "^7.2"
     },
     "require-dev": {
-        "doctrine/coding-standard": "13.0.x-dev",
-        "ergebnis/composer-normalize": "dev-main",
-        "phpunit/phpunit": "^11",
-        "shipmonk/composer-dependency-analyser": "dev-master",
-        "squizlabs/php_codesniffer": "^3.0"
-    },
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "LeonHusmann\\ComposerContribute\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "LeonHusmann\\ComposerContribute\\Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "ergebnis/composer-normalize": true
-        }
+        "composer/composer": "^2.0",
+        "squizlabs/php_codesniffer": "^3.0",
+        "doctrine/coding-standard": "13.0.x-dev"
     },
     "extra": {
         "class": "LeonHusmann\\ComposerContribute\\ContributePlugin"
@@ -53,5 +35,10 @@
         "dependency-check": "@php -dzend.assertions=-1 ./vendor/bin/composer-dependency-analyser",
         "test": "@php -dzend.assertions=-1 ./vendor/bin/phpunit --no-coverage",
         "test-coverage": "@php -dxdebug.mode=coverage -dzend.assertions=1 ./vendor/bin/phpunit"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
