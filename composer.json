@@ -1,0 +1,42 @@
+{
+    "name": "leonhusmann/composer-contribute",
+    "description": "Find open issues in your dependencies and contribute to the packages you rely on.",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "LeonHusmann\\ComposerContribute\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leon Husmann",
+            "email": "git@leonhusmann.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "composer-plugin-api": "^2.0"
+    },
+    "require-dev": {
+        "composer/composer": "^2.0",
+        "squizlabs/php_codesniffer": "^3.0",
+        "doctrine/coding-standard": "13.0.x-dev"
+    },
+    "extra": {
+        "class": "LeonHusmann\\ComposerContribute\\ContributePlugin"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf"
+    }
+}
