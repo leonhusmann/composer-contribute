@@ -8,6 +8,7 @@ use Composer\Composer;
 use Composer\Factory;
 use Composer\IO;
 use Composer\Plugin;
+use LeonHusmann\ComposerContribute\Composer\PackageFetcher;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 final class ContributePlugin implements Plugin\Capability\CommandProvider, Plugin\Capable, Plugin\PluginInterface
@@ -38,6 +39,7 @@ final class ContributePlugin implements Plugin\Capability\CommandProvider, Plugi
         return [
             new Command\ContributeCommand(
                 new Factory(),
+                new PackageFetcher(),
             ),
         ];
     }
