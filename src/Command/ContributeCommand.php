@@ -6,9 +6,10 @@ namespace LeonHusmann\ComposerContribute\Command;
 
 use Composer\Command;
 use Composer\Factory;
+use Composer\Package\BasePackage;
 use LeonHusmann\ComposerContribute\Composer\PackageFetcher;
 use LeonHusmann\ComposerContribute\Composer\PackageSourceResolver;
-use LeonHusmann\ComposerContribute\GithubApi\RepositoryMetadata;
+use LeonHusmann\ComposerContribute\Resolver\GitHostResovler;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +22,7 @@ final class ContributeCommand extends Command\BaseCommand
     public function __construct(
         private readonly Factory $factory,
         private readonly PackageFetcher $packageFetcher,
-        private readonly RepositoryMetadata $repositoryMetadata,
+        private readonly GitHostResovler $gitHostResovler,
     ) {
         parent::__construct('contribute');
     }
@@ -58,7 +59,8 @@ final class ContributeCommand extends Command\BaseCommand
                 continue;
             }
 
-            $issues = $this->repositoryMetadata->fetchIssues($basePackage);
+            $gitHost = $this->gitHostResovler->resolve($basePackage->getSourceUrl());
+            $issues  = $gitHost->fetchIssues($basePackage);
             $table->addRow([++$id, $basePackage->getPrettyName(), $issues->count()]);
         }
 

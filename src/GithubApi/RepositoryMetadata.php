@@ -6,6 +6,7 @@ namespace LeonHusmann\ComposerContribute\GithubApi;
 
 use Composer\Package\BasePackage;
 use LeonHusmann\ComposerContribute\GithubApi\Response\IssueCollection;
+use LeonHusmann\ComposerContribute\Resolver\GitHost;
 use RuntimeException;
 
 use function count;
@@ -22,9 +23,9 @@ use const CURLOPT_RETURNTRANSFER;
 use const CURLOPT_TIMEOUT;
 use const CURLOPT_URL;
 
-class RepositoryMetadata
+class RepositoryMetadata implements GitHost
 {
-    public function fetchIssues(BasePackage $package): mixed
+    public function fetchIssues(BasePackage $package): IssueCollection
     {
         $ch = curl_init();
 
