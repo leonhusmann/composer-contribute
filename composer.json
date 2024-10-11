@@ -11,9 +11,10 @@
     ],
     "require": {
         "php": "^8.2",
+        "ext-curl": "*",
         "composer-plugin-api": "^2.0",
-        "composer/composer": "^2.8@dev",
-        "symfony/console": "^7.2"
+        "composer/composer": "^2.8",
+        "symfony/console": "^7.1"
     },
     "require-dev": {
         "doctrine/coding-standard": "13.0.x-dev",
